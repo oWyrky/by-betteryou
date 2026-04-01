@@ -48,21 +48,7 @@ const Dashboard = () => {
   return (
     <div className="min-h-screen bg-background">
       <div className="mx-auto max-w-md px-4 py-6 pb-20">
-        {/* Header */}
-        <div className="mb-6 flex items-center justify-between">
-          <div>
-            <p className="text-xs text-muted-foreground">Olá,</p>
-            <h1 className="text-lg font-bold">{profile.display_name || 'Usuário'}</h1>
-          </div>
-          <div className="flex gap-1">
-            <button onClick={() => navigate('/settings')} className="rounded-xl p-2 text-muted-foreground transition-colors hover:bg-secondary">
-              <Settings className="h-5 w-5" />
-            </button>
-            <button onClick={signOut} className="rounded-xl p-2 text-muted-foreground transition-colors hover:bg-secondary">
-              <LogOut className="h-5 w-5" />
-            </button>
-          </div>
-        </div>
+        <DashboardHeader displayName={profile.display_name || 'Usuário'} avatarUrl={profile.avatar_url} />
 
         {/* Day completed banner */}
         {dayCompleted && (
