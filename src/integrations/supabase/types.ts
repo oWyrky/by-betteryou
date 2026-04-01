@@ -18,6 +18,7 @@ export type Database = {
         Row: {
           created_at: string
           date: string
+          day_completed: boolean
           exercise_done: boolean
           exercise_justified: boolean
           id: string
@@ -30,6 +31,7 @@ export type Database = {
         Insert: {
           created_at?: string
           date?: string
+          day_completed?: boolean
           exercise_done?: boolean
           exercise_justified?: boolean
           id?: string
@@ -42,6 +44,7 @@ export type Database = {
         Update: {
           created_at?: string
           date?: string
+          day_completed?: boolean
           exercise_done?: boolean
           exercise_justified?: boolean
           id?: string
@@ -55,6 +58,8 @@ export type Database = {
       }
       profiles: {
         Row: {
+          age: number | null
+          age_visible: boolean
           avatar_url: string | null
           created_at: string
           display_name: string | null
@@ -65,6 +70,8 @@ export type Database = {
           water_increment_ml: number
         }
         Insert: {
+          age?: number | null
+          age_visible?: boolean
           avatar_url?: string | null
           created_at?: string
           display_name?: string | null
@@ -75,6 +82,8 @@ export type Database = {
           water_increment_ml?: number
         }
         Update: {
+          age?: number | null
+          age_visible?: boolean
           avatar_url?: string | null
           created_at?: string
           display_name?: string | null
