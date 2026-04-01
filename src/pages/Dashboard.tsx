@@ -1,15 +1,12 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { useAuth } from '@/hooks/useAuth';
 import { useHabits } from '@/hooks/useHabits';
 import CircularProgress from '@/components/CircularProgress';
 import HabitCalendar from '@/components/HabitCalendar';
 import DayCompleteModal from '@/components/DayCompleteModal';
-import { Droplets, Dumbbell, BookOpen, LogOut, Check, Minus, Plus, ShieldCheck, Settings, Lock, Unlock } from 'lucide-react';
+import DashboardHeader from '@/components/DashboardHeader';
+import { Droplets, Dumbbell, BookOpen, Check, Minus, Plus, ShieldCheck, Lock, Unlock } from 'lucide-react';
 
 const Dashboard = () => {
-  const navigate = useNavigate();
-  const { signOut } = useAuth();
   const { todayHabit, profile, monthHabits, loading, streak, addWater, adjustWater, updateHabit } = useHabits();
   const [showCongrats, setShowCongrats] = useState(false);
 
