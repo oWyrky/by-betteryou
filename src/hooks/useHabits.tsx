@@ -121,8 +121,8 @@ export const useHabits = () => {
   };
 
   const adjustWater = async () => {
-    if (!todayHabit || !profile) return;
-    const newVal = Math.max(0, todayHabit.water_ml - profile.water_increment_ml);
+    if (!todayHabit) return;
+    const newVal = Math.max(0, todayHabit.water_ml - 100);
     await updateHabit({ water_ml: newVal });
   };
 
