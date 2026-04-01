@@ -14,7 +14,7 @@ const Login = () => {
           <span className="text-2xl font-bold text-primary-foreground">BY</span>
         </div>
         <div className="text-center">
-          <h1 className="text-2xl font-bold tracking-tight">Better You</h1>
+          <h1 className="text-2xl font-bold tracking-tight">BY</h1>
           <p className="mt-1 text-sm text-muted-foreground">
             Monitore seus hábitos e se torne sua melhor versão
           </p>
