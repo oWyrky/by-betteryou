@@ -5,7 +5,7 @@ import HabitCalendar from '@/components/HabitCalendar';
 import { Droplets, Dumbbell, BookOpen, LogOut, Check, Minus, Plus, ShieldCheck } from 'lucide-react';
 
 const Dashboard = () => {
-  const { user, signOut } = useAuth();
+  const { signOut } = useAuth();
   const { todayHabit, profile, monthHabits, loading, streak, addWater, adjustWater, updateHabit } = useHabits();
 
   if (loading || !todayHabit || !profile) {
