@@ -119,7 +119,7 @@ const Dashboard = () => {
               <button
                 onClick={adjustWater}
                 disabled={dayCompleted}
-                className="flex items-center justify-center gap-1 rounded-xl border px-4 py-3 text-sm font-medium text-muted-foreground transition-all hover:bg-secondary active:scale-[0.97]"
+                className="flex flex-1 items-center justify-center gap-1 rounded-xl border py-3 text-sm font-medium text-muted-foreground transition-all hover:bg-secondary active:scale-[0.97]"
               >
                 <Minus className="h-4 w-4" />
                 Ajustar
@@ -149,7 +149,7 @@ const Dashboard = () => {
               <button
                 onClick={() => updateHabit({ exercise_justified: !todayHabit.exercise_justified, exercise_done: false })}
                 disabled={dayCompleted}
-                className={`flex items-center justify-center gap-1 rounded-xl border px-4 py-3 text-sm font-medium transition-all active:scale-[0.97] ${
+                className={`flex flex-1 items-center justify-center gap-1 rounded-xl border py-3 text-sm font-medium transition-all active:scale-[0.97] ${
                   todayHabit.exercise_justified ? 'border-orange-300 bg-orange-50' : 'text-muted-foreground hover:bg-secondary'
                 }`}
               >
