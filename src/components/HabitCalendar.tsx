@@ -43,25 +43,35 @@ const HabitCalendar = ({ habits, waterGoal }: HabitCalendarProps) => {
       );
     }
 
-    // Calculate segments: water, exercise, study/reading
     const waterDone = waterGoal > 0 && habit.water_ml >= waterGoal;
     const exerciseDone = habit.exercise_done || habit.exercise_justified;
-    const studyDone = habit.study_done || habit.reading_done;
+    const bothStudyReading = habit.study_done && habit.reading_done;
 
+    // 4 segments: water, exercise, study, reading
     const segments = [
       { done: waterDone, color: 'hsl(210, 80%, 55%)' },
       { done: exerciseDone, color: 'hsl(25, 90%, 55%)' },
-      { done: studyDone, color: habit.study_done && habit.reading_done ? 'hsl(145, 60%, 42%)' : habit.study_done ? 'hsl(45, 90%, 50%)' : 'hsl(145, 60%, 42%)' },
+      { done: habit.study_done, color: 'hsl(45, 90%, 50%)' },
+      { done: habit.reading_done, color: 'hsl(145, 60%, 42%)' },
     ];
 
-    const totalSegments = 3;
-    const gap = 0.04; // gap between segments in radians fraction
+    // If neither study nor reading, merge last two into one segment showing 3 total
+    // Otherwise show 4 segments
+    const showFourSegments = habit.study_done || habit.reading_done || bothStudyReading;
+    const displaySegments = showFourSegments ? segments : [
+      { done: waterDone, color: 'hsl(210, 80%, 55%)' },
+      { done: exerciseDone, color: 'hsl(25, 90%, 55%)' },
+      { done: false, color: 'hsl(145, 60%, 42%)' },
+    ];
+
+    const totalSegments = displaySegments.length;
+    const gap = 0.04;
     const segmentAngle = (2 * Math.PI - gap * totalSegments) / totalSegments;
 
     return (
       <div className="relative flex items-center justify-center" style={{ width: size, height: size }}>
         <svg width={size} height={size} className="-rotate-90">
-          {segments.map((seg, i) => {
+          {displaySegments.map((seg, i) => {
             const startAngle = i * (segmentAngle + gap);
             const circumference = 2 * Math.PI * r;
             const dashLength = (segmentAngle / (2 * Math.PI)) * circumference;
