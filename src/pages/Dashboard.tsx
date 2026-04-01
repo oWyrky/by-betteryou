@@ -122,7 +122,7 @@ const Dashboard = () => {
                 className="flex flex-1 items-center justify-center gap-1 rounded-xl border py-3 text-sm font-medium text-muted-foreground transition-all hover:bg-secondary active:scale-[0.97]"
               >
                 <Minus className="h-4 w-4" />
-                Ajustar
+                100ml
               </button>
             </div>
           </div>
