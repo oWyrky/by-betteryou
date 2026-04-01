@@ -114,7 +114,7 @@ const Dashboard = () => {
                 style={{ backgroundColor: waterBgColor, color: waterTextColor }}
               >
                 <Plus className="h-4 w-4" />
-                +{profile.water_increment_ml}ml
+                {profile.water_increment_ml}ml
               </button>
               <button
                 onClick={adjustWater}
