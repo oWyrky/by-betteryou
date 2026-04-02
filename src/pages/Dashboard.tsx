@@ -53,7 +53,7 @@ const Dashboard = () => {
   return (
     <div className="min-h-screen bg-background">
       <div className="mx-auto max-w-md px-4 py-6 pb-20">
-        <DashboardHeader displayName={profile.display_name || 'Usuário'} avatarUrl={profile.avatar_url} />
+        <DashboardHeader displayName={profile.display_name || 'Usuário'} avatarUrl={resolvedAvatarUrl} />
 
         {/* Day completed banner */}
         {dayCompleted && (
