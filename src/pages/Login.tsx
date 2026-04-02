@@ -1,4 +1,5 @@
 import { lovable } from '@/integrations/lovable';
+import logoImg from '@/assets/logo.png';
 
 const Login = () => {
   const handleGoogleLogin = async () => {
@@ -10,9 +11,7 @@ const Login = () => {
   return (
     <div className="flex min-h-screen items-center justify-center bg-background px-4">
       <div className="flex flex-col items-center gap-6 w-full max-w-sm">
-        <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-primary">
-          <span className="text-2xl font-bold text-primary-foreground">BY</span>
-        </div>
+        <img src={logoImg} alt="BY" className="h-16 w-16 rounded-2xl" />
         <div className="text-center">
           <h1 className="text-2xl font-bold tracking-tight">BY</h1>
           <p className="mt-1 text-sm text-muted-foreground">
