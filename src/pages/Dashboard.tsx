@@ -10,6 +10,13 @@ import { Droplets, Dumbbell, BookOpen, Check, Minus, Plus, ShieldCheck, Lock, Un
 const Dashboard = () => {
   const { todayHabit, profile, monthHabits, loading, streak, addWater, adjustWater, updateHabit } = useHabits();
   const [showCongrats, setShowCongrats] = useState(false);
+  const [resolvedAvatarUrl, setResolvedAvatarUrl] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (profile?.avatar_url) {
+      getAvatarSignedUrl(profile.avatar_url).then(url => setResolvedAvatarUrl(url));
+    }
+  }, [profile?.avatar_url]);
 
   if (loading || !todayHabit || !profile) {
     return (
