@@ -73,8 +73,8 @@ const Settings = () => {
       water_increment_ml: waterIncrement,
     };
 
-    if (avatarUrl !== profile.avatar_url) {
-      updates.avatar_url = avatarUrl;
+    if (avatarPath !== profile.avatar_url) {
+      updates.avatar_url = avatarPath;
     }
 
     const { error } = await supabase
