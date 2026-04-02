@@ -10,15 +10,14 @@ const Login = () => {
 
   return (
     <div className="flex min-h-screen items-center justify-center bg-background px-4">
-      <div className="flex flex-col items-center gap-6 w-full max-w-sm">
-        <img src={logoImg} alt="BY" className="h-16 w-16 rounded-2xl" />
-        <div className="text-center">
-          <h1 className="text-2xl font-bold tracking-tight">BY</h1>
-          <p className="mt-1 text-sm text-muted-foreground">
+      <div className="flex flex-col items-center gap-8 w-full max-w-sm">
+        <div className="flex flex-col items-center gap-3">
+          <img src={logoImg} alt="BY" className="h-24 w-24 rounded-2xl shadow-lg" />
+          <p className="text-sm text-muted-foreground">
             Monitore seus hábitos e se torne sua melhor versão
           </p>
         </div>
-        <div className="w-full rounded-2xl border bg-card p-6">
+        <div className="w-full p-6">
           <button
             onClick={handleGoogleLogin}
             className="flex w-full items-center justify-center gap-3 rounded-xl bg-primary px-4 py-3.5 text-sm font-semibold text-primary-foreground transition-all hover:opacity-90 active:scale-[0.98]"
