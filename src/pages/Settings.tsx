@@ -30,7 +30,9 @@ const Settings = () => {
       setAgeVisible((profile as any).age_visible ?? true);
       setWaterGoal(profile.water_goal_ml);
       setWaterIncrement(profile.water_increment_ml);
-      setAvatarUrl(profile.avatar_url);
+      setAvatarPath(profile.avatar_url);
+      // Resolve signed URL for display
+      getAvatarSignedUrl(profile.avatar_url).then(url => setAvatarUrl(url));
     }
   }, [profile]);
 
