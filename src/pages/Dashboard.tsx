@@ -1,5 +1,6 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useHabits } from '@/hooks/useHabits';
+import { getAvatarSignedUrl } from '@/lib/avatar';
 import CircularProgress from '@/components/CircularProgress';
 import HabitCalendar from '@/components/HabitCalendar';
 import DayCompleteModal from '@/components/DayCompleteModal';
