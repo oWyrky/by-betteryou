@@ -5,6 +5,7 @@ import { useHabits } from '@/hooks/useHabits';
 import { supabase } from '@/integrations/supabase/client';
 import { ArrowLeft, Camera, Save, Eye, EyeOff } from 'lucide-react';
 import { toast } from 'sonner';
+import { getAvatarSignedUrl } from '@/lib/avatar';
 
 const Settings = () => {
   const navigate = useNavigate();
@@ -17,6 +18,7 @@ const Settings = () => {
   const [waterGoal, setWaterGoal] = useState(2000);
   const [waterIncrement, setWaterIncrement] = useState(100);
   const [avatarUrl, setAvatarUrl] = useState<string | null>(null);
+  const [avatarPath, setAvatarPath] = useState<string | null>(null);
   const [uploading, setUploading] = useState(false);
   const [saving, setSaving] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
