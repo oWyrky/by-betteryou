@@ -50,8 +50,10 @@ const Settings = () => {
       return;
     }
 
-    const { data: { publicUrl } } = supabase.storage.from('avatars').getPublicUrl(path);
-    setAvatarUrl(publicUrl + '?t=' + Date.now());
+    const { data: signedData } = await supabase.storage.from('avatars').createSignedUrl(path, 3600);
+    if (signedData?.signedUrl) {
+      setAvatarUrl(signedData.signedUrl);
+    }
     setUploading(false);
     toast.success('Foto atualizada!');
   };
