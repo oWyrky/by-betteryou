@@ -5,6 +5,7 @@ import { useHabits } from '@/hooks/useHabits';
 import { supabase } from '@/integrations/supabase/client';
 import { ArrowLeft, Camera, Save, Eye, EyeOff } from 'lucide-react';
 import { toast } from 'sonner';
+import { getAvatarSignedUrl } from '@/lib/avatar';
 
 const Settings = () => {
   const navigate = useNavigate();
@@ -17,6 +18,7 @@ const Settings = () => {
   const [waterGoal, setWaterGoal] = useState(2000);
   const [waterIncrement, setWaterIncrement] = useState(100);
   const [avatarUrl, setAvatarUrl] = useState<string | null>(null);
+  const [avatarPath, setAvatarPath] = useState<string | null>(null);
   const [uploading, setUploading] = useState(false);
   const [saving, setSaving] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -28,7 +30,9 @@ const Settings = () => {
       setAgeVisible((profile as any).age_visible ?? true);
       setWaterGoal(profile.water_goal_ml);
       setWaterIncrement(profile.water_increment_ml);
-      setAvatarUrl(profile.avatar_url);
+      setAvatarPath(profile.avatar_url);
+      // Resolve signed URL for display
+      getAvatarSignedUrl(profile.avatar_url).then(url => setAvatarUrl(url));
     }
   }, [profile]);
 
@@ -50,8 +54,9 @@ const Settings = () => {
       return;
     }
 
-    const { data: { publicUrl } } = supabase.storage.from('avatars').getPublicUrl(path);
-    setAvatarUrl(publicUrl + '?t=' + Date.now());
+    setAvatarPath(path);
+    const signedUrl = await getAvatarSignedUrl(path);
+    setAvatarUrl(signedUrl);
     setUploading(false);
     toast.success('Foto atualizada!');
   };
@@ -68,8 +73,8 @@ const Settings = () => {
       water_increment_ml: waterIncrement,
     };
 
-    if (avatarUrl !== profile.avatar_url) {
-      updates.avatar_url = avatarUrl;
+    if (avatarPath !== profile.avatar_url) {
+      updates.avatar_url = avatarPath;
     }
 
     const { error } = await supabase

@@ -1,5 +1,6 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useHabits } from '@/hooks/useHabits';
+import { getAvatarSignedUrl } from '@/lib/avatar';
 import CircularProgress from '@/components/CircularProgress';
 import HabitCalendar from '@/components/HabitCalendar';
 import DayCompleteModal from '@/components/DayCompleteModal';
@@ -9,6 +10,13 @@ import { Droplets, Dumbbell, BookOpen, Check, Minus, Plus, ShieldCheck, Lock, Un
 const Dashboard = () => {
   const { todayHabit, profile, monthHabits, loading, streak, addWater, adjustWater, updateHabit } = useHabits();
   const [showCongrats, setShowCongrats] = useState(false);
+  const [resolvedAvatarUrl, setResolvedAvatarUrl] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (profile?.avatar_url) {
+      getAvatarSignedUrl(profile.avatar_url).then(url => setResolvedAvatarUrl(url));
+    }
+  }, [profile?.avatar_url]);
 
   if (loading || !todayHabit || !profile) {
     return (
@@ -45,7 +53,7 @@ const Dashboard = () => {
   return (
     <div className="min-h-screen bg-background">
       <div className="mx-auto max-w-md px-4 py-6 pb-20">
-        <DashboardHeader displayName={profile.display_name || 'Usuário'} avatarUrl={profile.avatar_url} />
+        <DashboardHeader displayName={profile.display_name || 'Usuário'} avatarUrl={resolvedAvatarUrl} />
 
         {/* Day completed banner */}
         {dayCompleted && (
