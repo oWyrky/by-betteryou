@@ -63,11 +63,15 @@ export type Database = {
           avatar_url: string | null
           created_at: string
           display_name: string | null
+          height_cm: number | null
+          height_visible: boolean
           id: string
           updated_at: string
           user_id: string
           water_goal_ml: number
           water_increment_ml: number
+          weight_kg: number | null
+          weight_visible: boolean
         }
         Insert: {
           age?: number | null
@@ -75,11 +79,15 @@ export type Database = {
           avatar_url?: string | null
           created_at?: string
           display_name?: string | null
+          height_cm?: number | null
+          height_visible?: boolean
           id?: string
           updated_at?: string
           user_id: string
           water_goal_ml?: number
           water_increment_ml?: number
+          weight_kg?: number | null
+          weight_visible?: boolean
         }
         Update: {
           age?: number | null
@@ -87,11 +95,15 @@ export type Database = {
           avatar_url?: string | null
           created_at?: string
           display_name?: string | null
+          height_cm?: number | null
+          height_visible?: boolean
           id?: string
           updated_at?: string
           user_id?: string
           water_goal_ml?: number
           water_increment_ml?: number
+          weight_kg?: number | null
+          weight_visible?: boolean
         }
         Relationships: []
       }
