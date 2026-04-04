@@ -219,9 +219,13 @@ const Dashboard = () => {
 
         {/* Calendar */}
         <HabitCalendar habits={monthHabits} waterGoal={profile.water_goal_ml} />
+        
+        {/* Yearly Overview */}
+        <YearlyOverview waterGoal={profile.water_goal_ml} />
       </div>
 
       <DayCompleteModal open={showCongrats} onClose={() => setShowCongrats(false)} />
+      <UpdatePrompt />
     </div>
   );
 };
