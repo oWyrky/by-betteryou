@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useAuth } from '@/hooks/useAuth';
 import { useHabits } from '@/hooks/useHabits';
 import { supabase } from '@/integrations/supabase/client';
-import { ArrowLeft, Camera, Save, Eye, EyeOff } from 'lucide-react';
+import { ArrowLeft, Camera, Save, Eye, EyeOff, Ruler, Weight } from 'lucide-react';
 import { toast } from 'sonner';
 import { getAvatarSignedUrl } from '@/lib/avatar';
 
