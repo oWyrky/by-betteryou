@@ -5,6 +5,7 @@ import CircularProgress from '@/components/CircularProgress';
 import HabitCalendar from '@/components/HabitCalendar';
 import DayCompleteModal from '@/components/DayCompleteModal';
 import DashboardHeader from '@/components/DashboardHeader';
+import InstallBanner from '@/components/InstallBanner';
 import { Droplets, Dumbbell, BookOpen, Check, Minus, Plus, ShieldCheck, Lock, Unlock } from 'lucide-react';
 
 const Dashboard = () => {
@@ -54,6 +55,7 @@ const Dashboard = () => {
     <div className="min-h-screen bg-background">
       <div className="mx-auto max-w-md px-4 py-6 pb-20">
         <DashboardHeader displayName={profile.display_name || 'Usuário'} avatarUrl={resolvedAvatarUrl} />
+        <InstallBanner />
 
         {/* Day completed banner */}
         {dayCompleted && (
