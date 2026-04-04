@@ -17,6 +17,10 @@ const Settings = () => {
   const [ageVisible, setAgeVisible] = useState(true);
   const [waterGoal, setWaterGoal] = useState(2000);
   const [waterIncrement, setWaterIncrement] = useState(100);
+  const [heightCm, setHeightCm] = useState<number | ''>('');
+  const [heightVisible, setHeightVisible] = useState(true);
+  const [weightKg, setWeightKg] = useState<number | ''>('');
+  const [weightVisible, setWeightVisible] = useState(true);
   const [avatarUrl, setAvatarUrl] = useState<string | null>(null);
   const [avatarPath, setAvatarPath] = useState<string | null>(null);
   const [uploading, setUploading] = useState(false);
