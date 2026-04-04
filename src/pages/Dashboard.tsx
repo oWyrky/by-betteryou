@@ -5,6 +5,7 @@ import CircularProgress from '@/components/CircularProgress';
 import HabitCalendar from '@/components/HabitCalendar';
 import DayCompleteModal from '@/components/DayCompleteModal';
 import DashboardHeader from '@/components/DashboardHeader';
+import InstallBanner from '@/components/InstallBanner';
 import { Droplets, Dumbbell, BookOpen, Check, Minus, Plus, ShieldCheck, Lock, Unlock } from 'lucide-react';
 
 const Dashboard = () => {
