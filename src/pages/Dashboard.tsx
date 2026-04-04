@@ -7,6 +7,8 @@ import DayCompleteModal from '@/components/DayCompleteModal';
 import DashboardHeader from '@/components/DashboardHeader';
 import InstallBanner from '@/components/InstallBanner';
 import { Droplets, Dumbbell, BookOpen, Check, Minus, Plus, ShieldCheck, Lock, Unlock } from 'lucide-react';
+import YearlyOverview from '@/components/YearlyOverview';
+import UpdatePrompt from '@/components/UpdatePrompt';
 
 const Dashboard = () => {
   const { todayHabit, profile, monthHabits, loading, streak, addWater, adjustWater, updateHabit } = useHabits();
