@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useAuth } from '@/hooks/useAuth';
 import { useHabits } from '@/hooks/useHabits';
 import { supabase } from '@/integrations/supabase/client';
-import { ArrowLeft, Camera, Save, Eye, EyeOff } from 'lucide-react';
+import { ArrowLeft, Camera, Save, Eye, EyeOff, Ruler, Weight } from 'lucide-react';
 import { toast } from 'sonner';
 import { getAvatarSignedUrl } from '@/lib/avatar';
 
@@ -17,6 +17,10 @@ const Settings = () => {
   const [ageVisible, setAgeVisible] = useState(true);
   const [waterGoal, setWaterGoal] = useState(2000);
   const [waterIncrement, setWaterIncrement] = useState(100);
+  const [heightCm, setHeightCm] = useState<number | ''>('');
+  const [heightVisible, setHeightVisible] = useState(true);
+  const [weightKg, setWeightKg] = useState<number | ''>('');
+  const [weightVisible, setWeightVisible] = useState(true);
   const [avatarUrl, setAvatarUrl] = useState<string | null>(null);
   const [avatarPath, setAvatarPath] = useState<string | null>(null);
   const [uploading, setUploading] = useState(false);
@@ -30,6 +34,10 @@ const Settings = () => {
       setAgeVisible((profile as any).age_visible ?? true);
       setWaterGoal(profile.water_goal_ml);
       setWaterIncrement(profile.water_increment_ml);
+      setHeightCm((profile as any).height_cm ?? '');
+      setHeightVisible((profile as any).height_visible ?? true);
+      setWeightKg((profile as any).weight_kg ?? '');
+      setWeightVisible((profile as any).weight_visible ?? true);
       setAvatarPath(profile.avatar_url);
       // Resolve signed URL for display
       getAvatarSignedUrl(profile.avatar_url).then(url => setAvatarUrl(url));
@@ -71,6 +79,10 @@ const Settings = () => {
       age_visible: ageVisible,
       water_goal_ml: waterGoal,
       water_increment_ml: waterIncrement,
+      height_cm: heightCm === '' ? null : heightCm,
+      height_visible: heightVisible,
+      weight_kg: weightKg === '' ? null : weightKg,
+      weight_visible: weightVisible,
     };
 
     if (avatarPath !== profile.avatar_url) {
@@ -164,7 +176,54 @@ const Settings = () => {
             />
           </div>
 
-          {/* Water Goal */}
+          {/* Height */}
+          <div className="rounded-2xl border bg-card p-4">
+            <div className="mb-1 flex items-center justify-between">
+              <label className="text-xs font-medium text-muted-foreground">Altura (cm)</label>
+              <button
+                onClick={() => setHeightVisible(!heightVisible)}
+                className="flex items-center gap-1 text-xs text-muted-foreground hover:text-foreground"
+              >
+                {heightVisible ? <Eye className="h-3 w-3" /> : <EyeOff className="h-3 w-3" />}
+                {heightVisible ? 'Visível' : 'Oculta'}
+              </button>
+            </div>
+            <input
+              type="number"
+              value={heightCm}
+              onChange={e => setHeightCm(e.target.value === '' ? '' : parseFloat(e.target.value))}
+              className="w-full rounded-xl border bg-background px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary"
+              placeholder="Ex: 175"
+              min={50}
+              max={300}
+            />
+          </div>
+
+          {/* Weight */}
+          <div className="rounded-2xl border bg-card p-4">
+            <div className="mb-1 flex items-center justify-between">
+              <label className="text-xs font-medium text-muted-foreground">Peso (kg)</label>
+              <button
+                onClick={() => setWeightVisible(!weightVisible)}
+                className="flex items-center gap-1 text-xs text-muted-foreground hover:text-foreground"
+              >
+                {weightVisible ? <Eye className="h-3 w-3" /> : <EyeOff className="h-3 w-3" />}
+                {weightVisible ? 'Visível' : 'Oculta'}
+              </button>
+            </div>
+            <input
+              type="number"
+              value={weightKg}
+              onChange={e => setWeightKg(e.target.value === '' ? '' : parseFloat(e.target.value))}
+              className="w-full rounded-xl border bg-background px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary"
+              placeholder="Ex: 70"
+              min={20}
+              max={500}
+              step={0.1}
+            />
+          </div>
+
+
           <div className="rounded-2xl border bg-card p-4">
             <label className="mb-1 block text-xs font-medium text-muted-foreground">Meta de água diária (ml)</label>
             <input

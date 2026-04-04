@@ -7,6 +7,8 @@ import DayCompleteModal from '@/components/DayCompleteModal';
 import DashboardHeader from '@/components/DashboardHeader';
 import InstallBanner from '@/components/InstallBanner';
 import { Droplets, Dumbbell, BookOpen, Check, Minus, Plus, ShieldCheck, Lock, Unlock } from 'lucide-react';
+import YearlyOverview from '@/components/YearlyOverview';
+import UpdatePrompt from '@/components/UpdatePrompt';
 
 const Dashboard = () => {
   const { todayHabit, profile, monthHabits, loading, streak, addWater, adjustWater, updateHabit } = useHabits();
@@ -217,9 +219,13 @@ const Dashboard = () => {
 
         {/* Calendar */}
         <HabitCalendar habits={monthHabits} waterGoal={profile.water_goal_ml} />
+        
+        {/* Yearly Overview */}
+        <YearlyOverview waterGoal={profile.water_goal_ml} />
       </div>
 
       <DayCompleteModal open={showCongrats} onClose={() => setShowCongrats(false)} />
+      <UpdatePrompt />
     </div>
   );
 };
