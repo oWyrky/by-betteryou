@@ -79,6 +79,10 @@ const Settings = () => {
       age_visible: ageVisible,
       water_goal_ml: waterGoal,
       water_increment_ml: waterIncrement,
+      height_cm: heightCm === '' ? null : heightCm,
+      height_visible: heightVisible,
+      weight_kg: weightKg === '' ? null : weightKg,
+      weight_visible: weightVisible,
     };
 
     if (avatarPath !== profile.avatar_url) {
