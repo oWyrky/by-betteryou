@@ -176,7 +176,54 @@ const Settings = () => {
             />
           </div>
 
-          {/* Water Goal */}
+          {/* Height */}
+          <div className="rounded-2xl border bg-card p-4">
+            <div className="mb-1 flex items-center justify-between">
+              <label className="text-xs font-medium text-muted-foreground">Altura (cm)</label>
+              <button
+                onClick={() => setHeightVisible(!heightVisible)}
+                className="flex items-center gap-1 text-xs text-muted-foreground hover:text-foreground"
+              >
+                {heightVisible ? <Eye className="h-3 w-3" /> : <EyeOff className="h-3 w-3" />}
+                {heightVisible ? 'Visível' : 'Oculta'}
+              </button>
+            </div>
+            <input
+              type="number"
+              value={heightCm}
+              onChange={e => setHeightCm(e.target.value === '' ? '' : parseFloat(e.target.value))}
+              className="w-full rounded-xl border bg-background px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary"
+              placeholder="Ex: 175"
+              min={50}
+              max={300}
+            />
+          </div>
+
+          {/* Weight */}
+          <div className="rounded-2xl border bg-card p-4">
+            <div className="mb-1 flex items-center justify-between">
+              <label className="text-xs font-medium text-muted-foreground">Peso (kg)</label>
+              <button
+                onClick={() => setWeightVisible(!weightVisible)}
+                className="flex items-center gap-1 text-xs text-muted-foreground hover:text-foreground"
+              >
+                {weightVisible ? <Eye className="h-3 w-3" /> : <EyeOff className="h-3 w-3" />}
+                {weightVisible ? 'Visível' : 'Oculta'}
+              </button>
+            </div>
+            <input
+              type="number"
+              value={weightKg}
+              onChange={e => setWeightKg(e.target.value === '' ? '' : parseFloat(e.target.value))}
+              className="w-full rounded-xl border bg-background px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary"
+              placeholder="Ex: 70"
+              min={20}
+              max={500}
+              step={0.1}
+            />
+          </div>
+
+
           <div className="rounded-2xl border bg-card p-4">
             <label className="mb-1 block text-xs font-medium text-muted-foreground">Meta de água diária (ml)</label>
             <input
