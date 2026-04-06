@@ -171,7 +171,7 @@ const Dashboard = () => {
             </div>
           </div>
 
-        {/* Study Actions */}
+          {/* Study Actions */}
           <div className={`rounded-2xl border bg-card p-4 ${dayCompleted ? 'pointer-events-none opacity-60' : ''}`}>
             <div className="mb-2 flex items-center gap-2">
               <BookOpen className="h-4 w-4" style={{ color: 'hsl(45, 90%, 50%)' }} />
@@ -188,7 +188,15 @@ const Dashboard = () => {
                 }}
               >
                 <Check className="h-4 w-4" />
-                {todayHabit.study_done ? 'Estudado ✓' : 'Estudo Concluído'}
+                {todayHabit.study_done ? 'Concluído' : 'Estudo Concluído'}
+              </button>
+              <button
+                onClick={() => updateHabit({ study_done: false })}
+                disabled={dayCompleted || !todayHabit.study_done}
+                className={`flex flex-1 items-center justify-center gap-1 rounded-xl border py-3 text-sm font-medium transition-all active:scale-[0.97] text-muted-foreground hover:bg-secondary ${!todayHabit.study_done ? 'opacity-40' : ''}`}
+              >
+                <ShieldCheck className="h-4 w-4" />
+                Justificar
               </button>
             </div>
           </div>
@@ -210,7 +218,15 @@ const Dashboard = () => {
                 }}
               >
                 <Check className="h-4 w-4" />
-                {todayHabit.reading_done ? 'Lido ✓' : 'Leitura Concluída'}
+                {todayHabit.reading_done ? 'Concluído' : 'Leitura Concluída'}
+              </button>
+              <button
+                onClick={() => updateHabit({ reading_done: false })}
+                disabled={dayCompleted || !todayHabit.reading_done}
+                className={`flex flex-1 items-center justify-center gap-1 rounded-xl border py-3 text-sm font-medium transition-all active:scale-[0.97] text-muted-foreground hover:bg-secondary ${!todayHabit.reading_done ? 'opacity-40' : ''}`}
+              >
+                <ShieldCheck className="h-4 w-4" />
+                Justificar
               </button>
             </div>
           </div>
