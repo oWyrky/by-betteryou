@@ -171,11 +171,11 @@ const Dashboard = () => {
             </div>
           </div>
 
-          {/* Study/Reading Actions */}
+        {/* Study Actions */}
           <div className={`rounded-2xl border bg-card p-4 ${dayCompleted ? 'pointer-events-none opacity-60' : ''}`}>
             <div className="mb-2 flex items-center gap-2">
-              <BookOpen className="h-4 w-4" style={{ color: 'hsl(145, 60%, 42%)' }} />
-              <span className="text-sm font-semibold">Estudo / Leitura</span>
+              <BookOpen className="h-4 w-4" style={{ color: 'hsl(45, 90%, 50%)' }} />
+              <span className="text-sm font-semibold">Estudo</span>
             </div>
             <div className="flex gap-2">
               <button
@@ -190,6 +190,16 @@ const Dashboard = () => {
                 <Check className="h-4 w-4" />
                 {todayHabit.study_done ? 'Estudado ✓' : 'Estudo Concluído'}
               </button>
+            </div>
+          </div>
+
+          {/* Reading Actions */}
+          <div className={`rounded-2xl border bg-card p-4 ${dayCompleted ? 'pointer-events-none opacity-60' : ''}`}>
+            <div className="mb-2 flex items-center gap-2">
+              <BookOpen className="h-4 w-4" style={{ color: 'hsl(145, 60%, 42%)' }} />
+              <span className="text-sm font-semibold">Leitura</span>
+            </div>
+            <div className="flex gap-2">
               <button
                 onClick={() => updateHabit({ reading_done: !todayHabit.reading_done })}
                 disabled={dayCompleted}
