@@ -23,7 +23,9 @@ export type Database = {
           exercise_justified: boolean
           id: string
           reading_done: boolean
+          reading_justified: boolean
           study_done: boolean
+          study_justified: boolean
           updated_at: string
           user_id: string
           water_ml: number
@@ -36,7 +38,9 @@ export type Database = {
           exercise_justified?: boolean
           id?: string
           reading_done?: boolean
+          reading_justified?: boolean
           study_done?: boolean
+          study_justified?: boolean
           updated_at?: string
           user_id: string
           water_ml?: number
@@ -49,7 +53,9 @@ export type Database = {
           exercise_justified?: boolean
           id?: string
           reading_done?: boolean
+          reading_justified?: boolean
           study_done?: boolean
+          study_justified?: boolean
           updated_at?: string
           user_id?: string
           water_ml?: number
