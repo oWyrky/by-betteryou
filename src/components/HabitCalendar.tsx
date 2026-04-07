@@ -45,13 +45,15 @@ const HabitCalendar = ({ habits, waterGoal }: HabitCalendarProps) => {
     }
 
     const exerciseDone = habit.exercise_done || habit.exercise_justified;
+    const studyDone = habit.study_done || (habit as any).study_justified;
+    const readingDone = habit.reading_done || (habit as any).reading_justified;
     const waterProgress = waterGoal > 0 ? Math.min(habit.water_ml / waterGoal, 1) : 0;
 
     // 3 arc segments: Exercise, Study, Reading
     const segments = [
       { done: exerciseDone, color: 'hsl(25, 90%, 55%)' },
-      { done: habit.study_done, color: 'hsl(45, 90%, 50%)' },
-      { done: habit.reading_done, color: 'hsl(145, 60%, 42%)' },
+      { done: studyDone, color: 'hsl(45, 90%, 50%)' },
+      { done: readingDone, color: 'hsl(145, 60%, 42%)' },
     ];
 
     const gap = 0.04;

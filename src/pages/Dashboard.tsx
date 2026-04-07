@@ -31,7 +31,8 @@ const Dashboard = () => {
 
   const waterProgress = profile.water_goal_ml > 0 ? todayHabit.water_ml / profile.water_goal_ml : 0;
   const exerciseActive = todayHabit.exercise_done || todayHabit.exercise_justified;
-  const studyActive = todayHabit.study_done || todayHabit.reading_done;
+  const studyActive = todayHabit.study_done || (todayHabit as any).study_justified;
+  const readingActive = todayHabit.reading_done || (todayHabit as any).reading_justified;
   const dayCompleted = (todayHabit as any).day_completed as boolean;
 
   // Easter egg: water >= 2x goal → darker blue
@@ -42,7 +43,7 @@ const Dashboard = () => {
 
   // Can complete day: water goal met + exercise done + (study or reading done)
   const waterGoalMet = profile.water_goal_ml > 0 && todayHabit.water_ml >= profile.water_goal_ml;
-  const canCompleteDay = waterGoalMet && exerciseActive && studyActive;
+  const canCompleteDay = waterGoalMet && exerciseActive && studyActive && readingActive;
 
   const handleCompleteDay = async () => {
     await updateHabit({ day_completed: true } as any);
@@ -179,7 +180,7 @@ const Dashboard = () => {
             </div>
             <div className="flex gap-2">
               <button
-                onClick={() => updateHabit({ study_done: !todayHabit.study_done })}
+                onClick={() => updateHabit({ study_done: !todayHabit.study_done, study_justified: false } as any)}
                 disabled={dayCompleted}
                 className="flex flex-1 items-center justify-center gap-2 rounded-xl py-3 text-sm font-medium transition-all active:scale-[0.97]"
                 style={{
@@ -191,9 +192,11 @@ const Dashboard = () => {
                 {todayHabit.study_done ? 'Concluído' : 'Estudo Concluído'}
               </button>
               <button
-                onClick={() => updateHabit({ study_done: false })}
-                disabled={dayCompleted || !todayHabit.study_done}
-                className={`flex flex-1 items-center justify-center gap-1 rounded-xl border py-3 text-sm font-medium transition-all active:scale-[0.97] text-muted-foreground hover:bg-secondary ${!todayHabit.study_done ? 'opacity-40' : ''}`}
+                onClick={() => updateHabit({ study_justified: !(todayHabit as any).study_justified, study_done: false })}
+                disabled={dayCompleted}
+                className={`flex flex-1 items-center justify-center gap-1 rounded-xl border py-3 text-sm font-medium transition-all active:scale-[0.97] ${
+                  (todayHabit as any).study_justified ? 'border-yellow-300 bg-yellow-50' : 'text-muted-foreground hover:bg-secondary'
+                }`}
               >
                 <ShieldCheck className="h-4 w-4" />
                 Justificar
@@ -209,7 +212,7 @@ const Dashboard = () => {
             </div>
             <div className="flex gap-2">
               <button
-                onClick={() => updateHabit({ reading_done: !todayHabit.reading_done })}
+                onClick={() => updateHabit({ reading_done: !todayHabit.reading_done, reading_justified: false } as any)}
                 disabled={dayCompleted}
                 className="flex flex-1 items-center justify-center gap-2 rounded-xl py-3 text-sm font-medium transition-all active:scale-[0.97]"
                 style={{
@@ -221,9 +224,11 @@ const Dashboard = () => {
                 {todayHabit.reading_done ? 'Concluído' : 'Leitura Concluída'}
               </button>
               <button
-                onClick={() => updateHabit({ reading_done: false })}
-                disabled={dayCompleted || !todayHabit.reading_done}
-                className={`flex flex-1 items-center justify-center gap-1 rounded-xl border py-3 text-sm font-medium transition-all active:scale-[0.97] text-muted-foreground hover:bg-secondary ${!todayHabit.reading_done ? 'opacity-40' : ''}`}
+                onClick={() => updateHabit({ reading_justified: !(todayHabit as any).reading_justified, reading_done: false })}
+                disabled={dayCompleted}
+                className={`flex flex-1 items-center justify-center gap-1 rounded-xl border py-3 text-sm font-medium transition-all active:scale-[0.97] ${
+                  (todayHabit as any).reading_justified ? 'border-green-300 bg-green-50' : 'text-muted-foreground hover:bg-secondary'
+                }`}
               >
                 <ShieldCheck className="h-4 w-4" />
                 Justificar
