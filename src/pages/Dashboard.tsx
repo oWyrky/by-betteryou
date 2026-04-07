@@ -6,7 +6,7 @@ import HabitCalendar from '@/components/HabitCalendar';
 import DayCompleteModal from '@/components/DayCompleteModal';
 import DashboardHeader from '@/components/DashboardHeader';
 import InstallBanner from '@/components/InstallBanner';
-import { Droplets, Dumbbell, BookOpen, Check, Minus, Plus, ShieldCheck, Lock, Unlock } from 'lucide-react';
+import { Droplets, Dumbbell, BookOpen, GraduationCap, Check, Minus, Plus, ShieldCheck, Lock, Unlock } from 'lucide-react';
 import YearlyOverview from '@/components/YearlyOverview';
 import UpdatePrompt from '@/components/UpdatePrompt';
 
@@ -77,22 +77,22 @@ const Dashboard = () => {
           </div>
         )}
 
-        {/* 3 Circular Indicators */}
-        <div className="mb-6 flex items-center justify-around">
-          <div className="flex flex-col items-center gap-2">
+        {/* 4 Circular Indicators */}
+        <div className="mb-6 grid grid-cols-4 gap-2">
+          <div className="flex flex-col items-center gap-1">
             <CircularProgress progress={waterProgress} color={waterColor}>
-              <Droplets className="h-5 w-5" style={{ color: waterColor }} />
+              <Droplets className="h-4 w-4" style={{ color: waterColor }} />
             </CircularProgress>
             <div className="text-center">
-              <p className="text-xs font-semibold">{todayHabit.water_ml}ml</p>
-              <p className="text-[10px] text-muted-foreground">/{profile.water_goal_ml}ml</p>
-              {waterOver2x && <p className="text-[9px] font-bold text-blue-800">🏆 2x Meta!</p>}
+              <p className="text-xs font-semibold">{streak.water} dias</p>
+              <p className="text-[10px] text-muted-foreground">{todayHabit.water_ml}/{profile.water_goal_ml}ml</p>
+              {waterOver2x && <p className="text-[9px] font-bold text-blue-800">🏆 2x</p>}
             </div>
           </div>
 
-          <div className="flex flex-col items-center gap-2">
+          <div className="flex flex-col items-center gap-1">
             <CircularProgress progress={exerciseActive ? 1 : 0} color="hsl(25, 90%, 55%)">
-              <Dumbbell className="h-5 w-5" style={{ color: 'hsl(25, 90%, 55%)' }} />
+              <Dumbbell className="h-4 w-4" style={{ color: 'hsl(25, 90%, 55%)' }} />
             </CircularProgress>
             <div className="text-center">
               <p className="text-xs font-semibold">{streak.exercise} dias</p>
@@ -100,13 +100,23 @@ const Dashboard = () => {
             </div>
           </div>
 
-          <div className="flex flex-col items-center gap-2">
-            <CircularProgress progress={studyActive ? 1 : 0} color="hsl(145, 60%, 42%)">
-              <BookOpen className="h-5 w-5" style={{ color: 'hsl(145, 60%, 42%)' }} />
+          <div className="flex flex-col items-center gap-1">
+            <CircularProgress progress={studyActive ? 1 : 0} color="hsl(45, 90%, 50%)">
+              <GraduationCap className="h-4 w-4" style={{ color: 'hsl(45, 90%, 50%)' }} />
             </CircularProgress>
             <div className="text-center">
               <p className="text-xs font-semibold">{streak.study} dias</p>
               <p className="text-[10px] text-muted-foreground">estudo</p>
+            </div>
+          </div>
+
+          <div className="flex flex-col items-center gap-1">
+            <CircularProgress progress={readingActive ? 1 : 0} color="hsl(145, 60%, 42%)">
+              <BookOpen className="h-4 w-4" style={{ color: 'hsl(145, 60%, 42%)' }} />
+            </CircularProgress>
+            <div className="text-center">
+              <p className="text-xs font-semibold">{streak.reading} dias</p>
+              <p className="text-[10px] text-muted-foreground">leitura</p>
             </div>
           </div>
         </div>

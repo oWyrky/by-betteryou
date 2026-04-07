@@ -14,7 +14,7 @@ export const useHabits = () => {
   const [profile, setProfile] = useState<Profile | null>(null);
   const [monthHabits, setMonthHabits] = useState<DailyHabit[]>([]);
   const [loading, setLoading] = useState(true);
-  const [streak, setStreak] = useState({ exercise: 0, study: 0 });
+  const [streak, setStreak] = useState({ water: 0, exercise: 0, study: 0, reading: 0 });
 
   const fetchProfile = useCallback(async () => {
     if (!user) return;
@@ -76,8 +76,15 @@ export const useHabits = () => {
     
     if (!data) return;
 
+    let waterStreak = 0;
     let exStreak = 0;
     let stStreak = 0;
+    let rdStreak = 0;
+
+    for (const h of data) {
+      if (h.water_ml >= (profile?.water_goal_ml || 2000)) waterStreak++;
+      else break;
+    }
 
     for (const h of data) {
       if (h.exercise_done || h.exercise_justified) exStreak++;
@@ -85,11 +92,16 @@ export const useHabits = () => {
     }
     
     for (const h of data) {
-      if (h.study_done || h.reading_done) stStreak++;
+      if (h.study_done || (h as any).study_justified) stStreak++;
       else break;
     }
 
-    setStreak({ exercise: exStreak, study: stStreak });
+    for (const h of data) {
+      if (h.reading_done || (h as any).reading_justified) rdStreak++;
+      else break;
+    }
+
+    setStreak({ water: waterStreak, exercise: exStreak, study: stStreak, reading: rdStreak });
   }, [user]);
 
   useEffect(() => {
