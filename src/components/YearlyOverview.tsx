@@ -45,9 +45,11 @@ const YearlyOverview = ({ waterGoal }: YearlyOverviewProps) => {
     if (!habit) return 'bg-muted/40';
     const waterDone = waterGoal > 0 && habit.water_ml >= waterGoal;
     const exerciseDone = habit.exercise_done || habit.exercise_justified;
-    const studyDone = habit.study_done || habit.reading_done;
-    const count = [waterDone, exerciseDone, studyDone].filter(Boolean).length;
-    if (count === 3) return 'bg-green-500';
+    const studyDone = habit.study_done || habit.study_justified;
+    const readingDone = habit.reading_done || habit.reading_justified;
+    const count = [waterDone, exerciseDone, studyDone, readingDone].filter(Boolean).length;
+    if (count === 4) return 'bg-green-500';
+    if (count === 3) return 'bg-emerald-400';
     if (count === 2) return 'bg-yellow-500';
     if (count === 1) return 'bg-orange-400';
     return 'bg-muted/40';
@@ -95,9 +97,10 @@ const YearlyOverview = ({ waterGoal }: YearlyOverviewProps) => {
                 })}
               </div>
               <div className="mt-3 flex flex-wrap justify-center gap-3 text-[10px] text-muted-foreground">
-                <span className="flex items-center gap-1"><span className="inline-block h-2 w-2 rounded-sm bg-green-500" /> 3/3 metas</span>
-                <span className="flex items-center gap-1"><span className="inline-block h-2 w-2 rounded-sm bg-yellow-500" /> 2/3 metas</span>
-                <span className="flex items-center gap-1"><span className="inline-block h-2 w-2 rounded-sm bg-orange-400" /> 1/3 metas</span>
+                <span className="flex items-center gap-1"><span className="inline-block h-2 w-2 rounded-sm bg-green-500" /> 4/4</span>
+                <span className="flex items-center gap-1"><span className="inline-block h-2 w-2 rounded-sm bg-emerald-400" /> 3/4</span>
+                <span className="flex items-center gap-1"><span className="inline-block h-2 w-2 rounded-sm bg-yellow-500" /> 2/4</span>
+                <span className="flex items-center gap-1"><span className="inline-block h-2 w-2 rounded-sm bg-orange-400" /> 1/4</span>
                 <span className="flex items-center gap-1"><span className="inline-block h-2 w-2 rounded-sm bg-muted/40" /> Nenhuma</span>
               </div>
             </>
