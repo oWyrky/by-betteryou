@@ -7,6 +7,35 @@ interface BeforeInstallPromptEvent extends Event {
 
 export type InstallPlatform = 'ios' | 'android' | 'desktop-chromium' | 'desktop-firefox' | 'desktop-safari' | 'other';
 
+let savedPrompt: BeforeInstallPromptEvent | null = null;
+let installedByBrowser = false;
+let listenersStarted = false;
+const subscribers = new Set<() => void>();
+
+const notifySubscribers = () => subscribers.forEach((subscriber) => subscriber());
+
+const isStandalone = () => {
+  if (typeof window === 'undefined') return false;
+  return window.matchMedia('(display-mode: standalone)').matches || (window.navigator as any).standalone === true;
+};
+
+const startInstallListeners = () => {
+  if (typeof window === 'undefined' || listenersStarted) return;
+  listenersStarted = true;
+
+  window.addEventListener('beforeinstallprompt', (e: Event) => {
+    e.preventDefault();
+    savedPrompt = e as BeforeInstallPromptEvent;
+    notifySubscribers();
+  });
+
+  window.addEventListener('appinstalled', () => {
+    installedByBrowser = true;
+    savedPrompt = null;
+    notifySubscribers();
+  });
+};
+
 const detectPlatform = (): InstallPlatform => {
   if (typeof window === 'undefined') return 'other';
   const ua = window.navigator.userAgent.toLowerCase();
@@ -20,35 +49,35 @@ const detectPlatform = (): InstallPlatform => {
 };
 
 export const usePWAInstall = () => {
-  const [deferredPrompt, setDeferredPrompt] = useState<BeforeInstallPromptEvent | null>(null);
-  const [isInstalled, setIsInstalled] = useState(false);
+  const [deferredPrompt, setDeferredPrompt] = useState<BeforeInstallPromptEvent | null>(savedPrompt);
+  const [isInstalled, setIsInstalled] = useState(() => isStandalone() || installedByBrowser);
   const [platform] = useState<InstallPlatform>(detectPlatform);
 
   useEffect(() => {
-    if (window.matchMedia('(display-mode: standalone)').matches || (window.navigator as any).standalone === true) {
-      setIsInstalled(true);
-      return;
-    }
+    startInstallListeners();
 
-    const handler = (e: Event) => {
-      e.preventDefault();
-      setDeferredPrompt(e as BeforeInstallPromptEvent);
+    const syncInstallState = () => {
+      setDeferredPrompt(savedPrompt);
+      setIsInstalled(isStandalone() || installedByBrowser);
     };
 
-    window.addEventListener('beforeinstallprompt', handler);
-    window.addEventListener('appinstalled', () => {
-      setIsInstalled(true);
-      setDeferredPrompt(null);
-    });
+    subscribers.add(syncInstallState);
+    syncInstallState();
 
-    return () => window.removeEventListener('beforeinstallprompt', handler);
+    return () => {
+      subscribers.delete(syncInstallState);
+    };
   }, []);
 
   const install = async () => {
-    if (!deferredPrompt) return false;
-    await deferredPrompt.prompt();
-    const { outcome } = await deferredPrompt.userChoice;
-    setDeferredPrompt(null);
+    const prompt = savedPrompt || deferredPrompt;
+    if (!prompt) return false;
+
+    await prompt.prompt();
+    const { outcome } = await prompt.userChoice;
+    savedPrompt = null;
+    if (outcome === 'accepted') installedByBrowser = true;
+    notifySubscribers();
     return outcome === 'accepted';
   };
 
