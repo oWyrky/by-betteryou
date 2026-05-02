@@ -8,12 +8,14 @@ import { toast } from 'sonner';
 import { getAvatarSignedUrl } from '@/lib/avatar';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
 import { usePWAInstall } from '@/hooks/usePWAInstall';
+import InstallInstructionsModal from '@/components/InstallInstructionsModal';
 
 const Settings = () => {
   const navigate = useNavigate();
   const { user } = useAuth();
   const { profile, fetchProfile } = useHabits();
-  const { canInstall, isInstalled, install } = usePWAInstall();
+  const { canInstall, isInstalled, install, platform } = usePWAInstall();
+  const [showInstallHelp, setShowInstallHelp] = useState(false);
 
   const [displayName, setDisplayName] = useState('');
   const [age, setAge] = useState<number | ''>('');
@@ -293,18 +295,21 @@ const Settings = () => {
                   <div className="flex items-center gap-2 rounded-xl bg-green-50 px-4 py-3 text-sm font-medium text-green-700">
                     <span>✓ App já instalado</span>
                   </div>
-                ) : canInstall ? (
+                ) : (
                   <button
-                    onClick={install}
+                    onClick={async () => {
+                      if (canInstall) {
+                        const ok = await install();
+                        if (!ok) setShowInstallHelp(true);
+                      } else {
+                        setShowInstallHelp(true);
+                      }
+                    }}
                     className="flex w-full items-center justify-center gap-2 rounded-xl bg-primary py-3 text-sm font-semibold text-primary-foreground transition-all hover:opacity-90 active:scale-[0.97]"
                   >
                     <Download className="h-4 w-4" />
-                    Instalar BY
+                    Baixar / Instalar BY
                   </button>
-                ) : (
-                  <p className="rounded-xl bg-muted px-4 py-3 text-xs text-muted-foreground">
-                    Abra o BY no navegador do celular (Chrome/Safari) para instalar.
-                  </p>
                 )}
               </div>
 
@@ -321,6 +326,11 @@ const Settings = () => {
           </TabsContent>
         </Tabs>
       </div>
+      <InstallInstructionsModal
+        open={showInstallHelp}
+        onClose={() => setShowInstallHelp(false)}
+        platform={platform}
+      />
     </div>
   );
 };
