@@ -291,26 +291,21 @@ const Settings = () => {
                 <p className="mb-3 text-xs text-muted-foreground">
                   Instale o BY na tela inicial do seu celular para acesso rápido, como um app nativo.
                 </p>
-                {isInstalled ? (
-                  <div className="flex items-center gap-2 rounded-xl bg-green-50 px-4 py-3 text-sm font-medium text-green-700">
-                    <span>✓ App já instalado</span>
+                {isInstalled && (
+                  <div className="mb-3 flex items-center gap-2 rounded-xl bg-secondary px-4 py-3 text-sm font-medium text-foreground">
+                    <span>✓ BY já está aberto como aplicativo</span>
                   </div>
-                ) : (
-                  <button
-                    onClick={async () => {
-                      if (canInstall) {
-                        const ok = await install();
-                        if (!ok) setShowInstallHelp(true);
-                      } else {
-                        setShowInstallHelp(true);
-                      }
-                    }}
-                    className="flex w-full items-center justify-center gap-2 rounded-xl bg-primary py-3 text-sm font-semibold text-primary-foreground transition-all hover:opacity-90 active:scale-[0.97]"
-                  >
-                    <Download className="h-4 w-4" />
-                    Baixar / Instalar BY
-                  </button>
                 )}
+                <button
+                  onClick={async () => {
+                    const installed = canInstall ? await install() : false;
+                    if (!installed) setShowInstallHelp(true);
+                  }}
+                  className="flex w-full items-center justify-center gap-2 rounded-xl bg-primary py-3 text-sm font-semibold text-primary-foreground transition-all hover:opacity-90 active:scale-[0.97]"
+                >
+                  <Download className="h-4 w-4" />
+                  Baixar aplicativo
+                </button>
               </div>
 
               {/* Save App Settings */}
