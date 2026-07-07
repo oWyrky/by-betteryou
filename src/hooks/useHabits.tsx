@@ -1,6 +1,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from './useAuth';
+import { awardPoints } from '@/lib/points';
 import type { Tables } from '@/integrations/supabase/types';
 
 type DailyHabit = Tables<'daily_habits'>;
