@@ -9,6 +9,7 @@ import { getAvatarSignedUrl } from '@/lib/avatar';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
 import { usePWAInstall } from '@/hooks/usePWAInstall';
 import InstallInstructionsModal from '@/components/InstallInstructionsModal';
+import PointsCard from '@/components/PointsCard';
 
 const Settings = () => {
   const navigate = useNavigate();
