@@ -16,7 +16,7 @@ export const usePoints = () => {
 
   const fetchSummary = useCallback(async () => {
     if (!user) return;
-    const { data } = await supabase
+    const { data } = await (supabase as any)
       .from('user_points')
       .select('balance,total_earned,total_spent')
       .eq('user_id', user.id)
