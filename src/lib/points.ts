@@ -32,7 +32,7 @@ export async function awardPoints(
   const amount = opts.amount ?? POINT_RULES[reason].amount;
   if (amount === 0) return { awarded: false, newBalance: 0 };
 
-  const { data, error } = await supabase.rpc('award_points', {
+  const { data, error } = await (supabase as any).rpc('award_points', {
     _reason: reason,
     _amount: amount,
     _reference_date: referenceDate,
