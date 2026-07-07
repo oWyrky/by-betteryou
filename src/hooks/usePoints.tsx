@@ -56,7 +56,7 @@ export const usePointTransactions = (limit = 10) => {
 
   const fetchTx = useCallback(async () => {
     if (!user) return;
-    const { data } = await supabase
+    const { data } = await (supabase as any)
       .from('point_transactions')
       .select('id,amount,reason,reference_date,created_at')
       .eq('user_id', user.id)
