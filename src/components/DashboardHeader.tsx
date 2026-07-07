@@ -13,6 +13,7 @@ const DashboardHeader = ({ displayName, avatarUrl }: DashboardHeaderProps) => {
   const navigate = useNavigate();
   const { signOut } = useAuth();
   const { theme, toggleTheme } = useTheme();
+  const { balance } = usePoints();
 
   const initials = displayName?.[0]?.toUpperCase() || '?';
 
