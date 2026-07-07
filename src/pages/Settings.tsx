@@ -129,6 +129,8 @@ const Settings = () => {
 
           {/* ===== ABA PERFIL ===== */}
           <TabsContent value="profile">
+            <PointsCard />
+
             {/* Avatar */}
             <div className="mb-6 flex flex-col items-center gap-3">
               <div className="relative">
