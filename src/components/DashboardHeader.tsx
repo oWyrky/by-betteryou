@@ -1,7 +1,8 @@
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '@/hooks/useAuth';
 import { useTheme } from '@/hooks/useTheme';
-import { Settings, Sun, Moon, LogOut } from 'lucide-react';
+import { usePoints } from '@/hooks/usePoints';
+import { Settings, Sun, Moon, LogOut, Coins } from 'lucide-react';
 
 interface DashboardHeaderProps {
   displayName: string;
@@ -12,6 +13,7 @@ const DashboardHeader = ({ displayName, avatarUrl }: DashboardHeaderProps) => {
   const navigate = useNavigate();
   const { signOut } = useAuth();
   const { theme, toggleTheme } = useTheme();
+  const { balance } = usePoints();
 
   const initials = displayName?.[0]?.toUpperCase() || '?';
 
@@ -37,6 +39,14 @@ const DashboardHeader = ({ displayName, avatarUrl }: DashboardHeaderProps) => {
 
       {/* Action icons */}
       <div className="flex items-center gap-1">
+        <button
+          onClick={() => navigate('/settings?tab=profile')}
+          className="mr-1 flex items-center gap-1 rounded-full bg-amber-100 px-2.5 py-1 text-xs font-bold text-amber-700 transition-transform hover:scale-105 active:scale-95 dark:bg-amber-500/15 dark:text-amber-300"
+          title="Seus pontos"
+        >
+          <Coins className="h-3.5 w-3.5" />
+          {balance}
+        </button>
         <button
           onClick={toggleTheme}
           className="rounded-xl p-2.5 text-muted-foreground transition-colors hover:bg-secondary"

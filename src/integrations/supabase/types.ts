@@ -62,6 +62,36 @@ export type Database = {
         }
         Relationships: []
       }
+      point_transactions: {
+        Row: {
+          amount: number
+          created_at: string
+          id: string
+          metadata: Json
+          reason: Database["public"]["Enums"]["point_reason"]
+          reference_date: string | null
+          user_id: string
+        }
+        Insert: {
+          amount: number
+          created_at?: string
+          id?: string
+          metadata?: Json
+          reason: Database["public"]["Enums"]["point_reason"]
+          reference_date?: string | null
+          user_id: string
+        }
+        Update: {
+          amount?: number
+          created_at?: string
+          id?: string
+          metadata?: Json
+          reason?: Database["public"]["Enums"]["point_reason"]
+          reference_date?: string | null
+          user_id?: string
+        }
+        Relationships: []
+      }
       profiles: {
         Row: {
           age: number | null
@@ -113,15 +143,64 @@ export type Database = {
         }
         Relationships: []
       }
+      user_points: {
+        Row: {
+          balance: number
+          created_at: string
+          id: string
+          total_earned: number
+          total_spent: number
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          balance?: number
+          created_at?: string
+          id?: string
+          total_earned?: number
+          total_spent?: number
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          balance?: number
+          created_at?: string
+          id?: string
+          total_earned?: number
+          total_spent?: number
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      award_points: {
+        Args: {
+          _amount: number
+          _metadata?: Json
+          _reason: Database["public"]["Enums"]["point_reason"]
+          _reference_date?: string
+        }
+        Returns: {
+          awarded: boolean
+          new_balance: number
+        }[]
+      }
     }
     Enums: {
-      [_ in never]: never
+      point_reason:
+        | "water_goal"
+        | "exercise_done"
+        | "study_done"
+        | "reading_done"
+        | "day_completed"
+        | "habit_justified"
+        | "purchase"
+        | "admin_adjustment"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -248,6 +327,17 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      point_reason: [
+        "water_goal",
+        "exercise_done",
+        "study_done",
+        "reading_done",
+        "day_completed",
+        "habit_justified",
+        "purchase",
+        "admin_adjustment",
+      ],
+    },
   },
 } as const

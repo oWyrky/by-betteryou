@@ -1,0 +1,1 @@
+REVOKE EXECUTE ON FUNCTION public.award_points(public.point_reason, integer, date, jsonb) FROM PUBLIC, anon;

@@ -1,6 +1,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from './useAuth';
+import { awardPoints } from '@/lib/points';
 import type { Tables } from '@/integrations/supabase/types';
 
 type DailyHabit = Tables<'daily_habits'>;
@@ -118,8 +119,22 @@ export const useHabits = () => {
     }
   }, [user, fetchProfile, fetchToday, fetchMonth, calculateStreaks]);
 
+  const evaluateAwards = (prev: DailyHabit, next: DailyHabit) => {
+    const date = next.date;
+    const goal = profile?.water_goal_ml || 2000;
+    // Water goal
+    if (prev.water_ml < goal && next.water_ml >= goal) {
+      awardPoints('water_goal', date);
+    }
+    if (!prev.exercise_done && next.exercise_done) awardPoints('exercise_done', date);
+    if (!prev.study_done && next.study_done) awardPoints('study_done', date);
+    if (!prev.reading_done && next.reading_done) awardPoints('reading_done', date);
+    if (!prev.day_completed && next.day_completed) awardPoints('day_completed', date);
+  };
+
   const updateHabit = async (updates: Partial<DailyHabit>) => {
     if (!todayHabit) return;
+    const prev = todayHabit;
     const { data } = await supabase
       .from('daily_habits')
       .update(updates)
@@ -128,6 +143,7 @@ export const useHabits = () => {
       .single();
     if (data) {
       setTodayHabit(data);
+      evaluateAwards(prev, data);
       fetchMonth();
       calculateStreaks();
     }
