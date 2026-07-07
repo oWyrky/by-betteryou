@@ -1,7 +1,8 @@
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '@/hooks/useAuth';
 import { useTheme } from '@/hooks/useTheme';
-import { Settings, Sun, Moon, LogOut } from 'lucide-react';
+import { usePoints } from '@/hooks/usePoints';
+import { Settings, Sun, Moon, LogOut, Coins } from 'lucide-react';
 
 interface DashboardHeaderProps {
   displayName: string;
