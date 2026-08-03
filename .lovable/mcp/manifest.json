@@ -1,0 +1,143 @@
+{
+  "version": 1,
+  "sdk_version": "0.26.1",
+  "path": "/functions/v1/mcp",
+  "auth": {
+    "type": "oauth",
+    "issuer": "https://eascltdhoephvzwphtih.supabase.co/auth/v1",
+    "accepted_audiences": [
+      "authenticated"
+    ]
+  },
+  "mcp": {
+    "server": {
+      "name": "by",
+      "version": "0.1.0",
+      "title": "BY"
+    },
+    "tools": [
+      {
+        "name": "get_profile",
+        "title": "Ver perfil e pontos",
+        "description": "Retorna o perfil do usuário autenticado (nickname, meta de água, incremento) e o saldo de pontos acumulados.",
+        "annotations": {
+          "readOnlyHint": true,
+          "idempotentHint": true,
+          "openWorldHint": false
+        },
+        "inputSchema": {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "type": "object",
+          "properties": {}
+        },
+        "outputSchema": null
+      },
+      {
+        "name": "get_day",
+        "title": "Ver hábitos do dia",
+        "description": "Retorna os hábitos registrados (água, exercício, estudo, leitura) do usuário autenticado em uma data específica (YYYY-MM-DD).",
+        "annotations": {
+          "readOnlyHint": true,
+          "idempotentHint": true,
+          "openWorldHint": false
+        },
+        "inputSchema": {
+          "type": "object",
+          "properties": {
+            "date": {
+              "type": "string",
+              "description": "Data no formato YYYY-MM-DD."
+            }
+          },
+          "required": [
+            "date"
+          ],
+          "additionalProperties": false,
+          "$schema": "http://json-schema.org/draft-07/schema#"
+        },
+        "outputSchema": null
+      },
+      {
+        "name": "list_days",
+        "title": "Listar histórico de hábitos",
+        "description": "Lista os registros diários de hábitos do usuário autenticado dentro de um intervalo de datas (YYYY-MM-DD).",
+        "annotations": {
+          "readOnlyHint": true,
+          "idempotentHint": true,
+          "openWorldHint": false
+        },
+        "inputSchema": {
+          "type": "object",
+          "properties": {
+            "start_date": {
+              "type": "string",
+              "description": "Data inicial no formato YYYY-MM-DD."
+            },
+            "end_date": {
+              "type": "string",
+              "description": "Data final no formato YYYY-MM-DD."
+            }
+          },
+          "required": [
+            "start_date",
+            "end_date"
+          ],
+          "additionalProperties": false,
+          "$schema": "http://json-schema.org/draft-07/schema#"
+        },
+        "outputSchema": null
+      },
+      {
+        "name": "log_habit",
+        "title": "Registrar hábito do dia",
+        "description": "Registra ou atualiza os hábitos do usuário autenticado numa data: água (ml), exercício, estudo e leitura (concluído ou justificado).",
+        "annotations": {
+          "readOnlyHint": false,
+          "destructiveHint": false,
+          "idempotentHint": true,
+          "openWorldHint": false
+        },
+        "inputSchema": {
+          "type": "object",
+          "properties": {
+            "date": {
+              "type": "string",
+              "description": "Data no formato YYYY-MM-DD."
+            },
+            "water_ml": {
+              "type": "number",
+              "description": "Total de água bebida no dia, em ml."
+            },
+            "exercise_done": {
+              "type": "boolean"
+            },
+            "exercise_justified": {
+              "type": "boolean"
+            },
+            "study_done": {
+              "type": "boolean"
+            },
+            "study_justified": {
+              "type": "boolean"
+            },
+            "reading_done": {
+              "type": "boolean"
+            },
+            "reading_justified": {
+              "type": "boolean"
+            },
+            "day_completed": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "date"
+          ],
+          "additionalProperties": false,
+          "$schema": "http://json-schema.org/draft-07/schema#"
+        },
+        "outputSchema": null
+      }
+    ]
+  }
+}
